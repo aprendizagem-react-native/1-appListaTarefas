@@ -16,7 +16,8 @@ export default function App() {
     ];
 
     const [ tarefas, alteraTarefas ] = React.useState( banco );
-    const [ exibeModal, alteraExibeModal ] = React.useState( true );
+    const [ exibeModal, alteraExibeModal ] = React.useState( false );
+    const [ exibeTodos, alteraExibeTodos ] = React.useState( true );
 
     /*
     const buscaTodos = () => {
@@ -29,8 +30,16 @@ export default function App() {
         alteraTarefas( [ ...tarefas, tarefa ] );
     }
 
-    const altera = () => {
-        
+    const altera = ( id ) => {
+        const novas_tarefas = tarefas.map( t => {
+            if( t.id == id ){
+                t.status = !t.status;
+            }
+            return t;
+        })
+
+        alteraTarefas( novas_tarefas );
+
     }
 
     const remove = ( id ) => {
@@ -53,7 +62,7 @@ export default function App() {
             <MostraTodos />
 
             <View style={e.containerLista} >
-                <Lista remove={remove} tarefas={tarefas} />           
+                <Lista exibeTodos={exibeTodos} altera={altera} remove={remove} tarefas={tarefas} />           
             </View>
 
             <Cadastro insere={insere} exibeModal={exibeModal} alteraExibeModal={alteraExibeModal} />

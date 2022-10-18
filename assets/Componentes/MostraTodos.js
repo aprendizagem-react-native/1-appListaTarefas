@@ -6,7 +6,7 @@ const MostraTodos = () => {
     return(
         <View style={ e.container } >
             <Text style={ e.switch }> Mostrar Todos </Text>
-            <Switch/>
+            <Switch onValueChange={  } value={false} />
         </View>     
     );
 }
