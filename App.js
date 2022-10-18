@@ -1,20 +1,69 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+
+import { StyleSheet, Text, View, Switch } from 'react-native';
+
+import Menu from './assets/Componentes/Menu';
+import MostraTodos from './assets/Componentes/MostraTodos';
+import Lista from './assets/Componentes/Lista';
+import Cadastro from './assets/Componentes/Cadastro';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+    const banco = [
+        { id: 1, titulo: "Lavar a louça", status: false },
+        { id: 2, titulo: "Limpar a casa", status: false },
+        { id: 3, titulo: "Estudar React", status: true }
+    ];
+
+    const [ tarefas, alteraTarefas ] = React.useState( banco );
+    const [ exibeModal, alteraExibeModal ] = React.useState( true );
+
+    /*
+    const buscaTodos = () => {
+    }
+    */
+
+    const insere = ( tarefa ) => {
+        // axios.post
+        // buscaTodos()
+        alteraTarefas( [ ...tarefas, tarefa ] );
+    }
+
+    const altera = () => {
+        
+    }
+
+    const remove = ( id ) => {
+        // axios.delete()
+        // buscaTodos()
+        const novas_tarefas = tarefas.filter( t => {
+            if( t.id != id ){
+                return t;
+            }
+        })
+
+        alteraTarefas( novas_tarefas );
+
+    }
+
+    return (
+        <View>
+
+            <Menu alteraExibeModal={alteraExibeModal} />
+            <MostraTodos />
+
+            <View style={e.containerLista} >
+                <Lista remove={remove} tarefas={tarefas} />           
+            </View>
+
+            <Cadastro insere={insere} exibeModal={exibeModal} alteraExibeModal={alteraExibeModal} />
+
+        </View>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const e = StyleSheet.create({
+    containerLista: {
+        padding: 15
+    }
 });
